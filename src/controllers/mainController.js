@@ -1,13 +1,6 @@
 /* base de datos */
-const { error } = require('console');
 const db = require('../database/models')
-
-
-const fs = require('fs');
-const path = require('path');
-
-const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+const {Op} = require('sequelize')
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -39,12 +32,29 @@ const controller = {
 	},
 	search: (req, res) => {
 		const keywords = req.query.keywords
-		const results= products.filter(product => product.name.toLowerCase().includes(keywords.toLowerCase()))
-		res.render('results',{
-			results,
-			toThousand,
-			keywords
+		db.Product.findAll({
+			where: {
+				[Op.or] : [ //para que tambien busque por algo que esta en la descripcion
+					{
+						name : {
+							[Op.substring] : keywords
+						}
+					},
+					{
+						description: {
+							[Op.substring] : keywords
+						}
+					},
+				]
+			}
 		})
+			.then(results => {
+				res.render('results',{
+					results,
+					toThousand,
+					keywords
+				})
+			}).catch(error => console.log(error))
 	},
 };
 
