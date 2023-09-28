@@ -46,7 +46,7 @@ const controller = {
 			description: description.trim(),
 			discount: discount || 0,
 			categoryId,
-			image: null
+			image : req.file ? req.file.filename : null
 		}).then(product =>{
 			console.log(product);
 			res.redirect('/products')
