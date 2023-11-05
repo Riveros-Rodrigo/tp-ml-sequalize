@@ -12,16 +12,19 @@
 			<div class="container products-wrapper">
 				<div class="row">
 					<div class="col-12">
-						<h2 class="products-title">Todos los productos</h2>
+						<h2 class="products-title">Mis favoritos</h2>
 					</div>
-					<% products.forEach(product=> { %>
-						<div class="col-12 col-sm-6 col-lg-3">
-
-							<%- include('partials/product', { ...product.dataValues, toThousand }) %>
-						</div>
-
-						<% }) %>
-
+					<% if (favorites.length){%>
+						<% favorites.forEach(product=> { %>
+							<div class="col-12 col-sm-6 col-lg-3">
+	
+								<%- include('partials/product', { ...product, toThousand }) %>
+							</div>
+	
+							<% }) %>
+					<% }else{ %>
+						<p class="alert alert-warning">Aun no tenés favoritos </p>
+					<% } %>
 				</div>
 			</div>
 			<!-- /todos los productos -->

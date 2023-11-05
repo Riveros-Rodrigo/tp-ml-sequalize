@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product.belongsTo(models.Category,{
         as : 'category',
-        foreignKey:'categoryId'
+        foreignKey : 'categoryId'
       })
     }
   }
@@ -21,9 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     price: DataTypes.INTEGER,
     discount: {
-      type:DataTypes.INTEGER,
-      defaultValue: 0
-  },
+      type : DataTypes.INTEGER,
+      defaultValue : 0},
     description: DataTypes.STRING,
     image: DataTypes.STRING,
     categoryId: DataTypes.INTEGER

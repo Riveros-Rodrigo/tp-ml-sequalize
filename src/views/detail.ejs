@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <!-- Include Head -->
-<%- include('partials/head', {title: 'Detalle'}) %>
+<%- include('partials/head', {title: name}) %>
 <body>
 	<!-- Header -->
 	<%- include('partials/headerNavbar') %>
@@ -27,18 +27,20 @@
 						<h2 class="product-detail-title"><%= name %></h2>
 						<% if (discount) { %>
 							<p class="product-detail-price small">
-								<span>$ <%= toThousand(price) %></span>
+								<span>$<%= toThousand(price) %></span>
 								/
 								<b><%= discount %>% OFF</b>
 							</p>
 							<p class="product-detail-price">
-								$ <%=toThousand((price - (price * discount / 100)).toFixed(0)) %>
+								$<%= toThousand(price - (price * discount / 100).toFixed(0)) %>
 							</p>
+
 						<% } else{ %>
+							
 							<p class="product-detail-price">
-								$<%= price %>
+								$<%= toThousand(price) %>
 							</p>
-						<%} %>
+							<% } %>
 						<ul class="actions-list">
 							<li>
 								<i class="fas fa-credit-card"></i>

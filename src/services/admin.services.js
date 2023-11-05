@@ -1,39 +1,42 @@
-const db = require('../database/models')
+const db = require('../database/models');
 
 const getAllProducts = async (limit, offset) => {
+
     try {
-        
+
         const {rows, count} = await db.Product.findAndCountAll({
             limit,
             offset,
             attributes : {
-                exclude: ['createdAt', 'updatedAt']
+                exclude : ['createdAt','updatedAt']
             }
         });
 
-        return{
+        return {
             count,
             rows
         }
-
+        
     } catch (error) {
         throw {
-            status: error.status || 500,
-            message: error.message || 'Upss, hubo un error :('
+            status : error.status || 500,
+            message : error.message || 'Upss, hubo un error :('
         }
     }
 }
+
 const getProductById = async (id) => {
+
     try {
-        
+
         const product = await db.Product.findByPk(id,{
-            attributes: {
-                exclude: ['categoryId', 'createdAt', 'updatedAt']
+            attributes : {
+                exclude : ['categoryId','createdAt','updatedAt']
             },
-            include : [
+            include: [
                 {
                     association : 'category',
-                    attributes: ['name']
+                    attributes : ['name']
                 }
             ]
         })
@@ -42,26 +45,34 @@ const getProductById = async (id) => {
         
     } catch (error) {
         throw {
-            status: error.status || 500,
-            message: error.message || 'Upss, hubo un error :('
+            status : error.status || 500,
+            message : error.message || 'Upss, hubo un error :('
         }
     }
 }
+
+
 const createProduct = async (data) => {
+
     try {
         
     } catch (error) {
         
     }
 }
-const updateProduct = async (id, data) => {
+
+const updateProduct = async (id,data) => {
+
     try {
         
     } catch (error) {
         
     }
+
 }
+
 const deleteProduct = async (id) => {
+
     try {
         
     } catch (error) {
@@ -76,5 +87,4 @@ module.exports = {
     updateProduct,
     deleteProduct
 }
-
 

@@ -1,20 +1,22 @@
-// ************ Require's ************
 const express = require('express');
 const router = express.Router();
 
-// ************ Controller Require ************
-const {register,processLogin,processRegister,login,logout,profile,update} = require('../controllers/usersController');
+const {register,processLogin,processRegister,login,logout,profile,update, favorites} = require('../controllers/usersController');
 const registerValidator = require('../validations/registerValidator');
 const loginValidator = require('../validations/loginValidator');
 const checkUserLogin = require('../middlewares/checkUserLogin');
-// /users
+
+/* /users */
+
 router
     .get('/register', register)
     .post('/register',registerValidator, processRegister)
     .get('/login', login)
     .post('/login',loginValidator, processLogin)
     .get('/profile',checkUserLogin, profile)
-    .put('/update', update)
-    .get('/logout', logout)
+    .put('/update',update)
+    .get('/logout',logout)
+    .get('/favorites',checkUserLogin, favorites)
+
 
 module.exports = router;

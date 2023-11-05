@@ -1,7 +1,6 @@
 // ************ Require's ************
 const express = require('express');
 const router = express.Router();
-const upload = require('../middlewares/upload');
 
 // ************ Controller Require ************
 const productsController = require('../controllers/productsController');
@@ -11,7 +10,7 @@ router.get('/', productsController.index);
 
 /*** CREATE ONE PRODUCT ***/ 
 router.get('/create', productsController.create); 
-router.post('/create', upload.single('productFile') ,productsController.store); 
+router.post('/create', productsController.store); 
 
 
 /*** GET ONE PRODUCT ***/ 
@@ -19,11 +18,11 @@ router.get('/detail/:id', productsController.detail);
 
 /*** EDIT ONE PRODUCT ***/ 
 router.get('/edit/:id', productsController.edit); 
-router.put('/:id', productsController.update); 
+router.put('/update/:id', productsController.update); 
 
 
 /*** DELETE ONE PRODUCT***/ 
-router.delete('/delete/:id', productsController.destroy);
+router.delete('/delete/:id', productsController.destroy); 
 
 
 module.exports = router;
